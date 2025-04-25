@@ -1,10 +1,7 @@
-from langchain_core.vectorstores import InMemoryVectorStore
+from langchain_community.vectorstores import FAISS
 
-def init_vector_store(embeddings):
-    return InMemoryVectorStore(embeddings)
+def init_vector_store(embeddings, chunks):
+    return FAISS.from_documents(chunks, embedding=embeddings)
 
-def index_documents(store, chunks):
-    store.add_documents(chunks)
-
-def search_documents(store, query):
-    return store.similarity_search(query)
+def search_documents(store, query, top_k=4):
+    return store.similarity_search(query, k=top_k)

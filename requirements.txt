@@ -8,3 +8,5 @@ tiktoken
 sentence-transformers
 faiss-cpu
 python-dotenv
+langchain-ollama
+faiss-cpu
