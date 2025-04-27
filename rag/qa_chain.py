@@ -1,3 +1,4 @@
+# rag/qa_chain.py
 import re
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_ollama import OllamaLLM
@@ -11,12 +12,19 @@ def generate_answer(query, related_docs, chat_history):
     chat_history_str = "\n".join(clean_text(m) for m in chat_history)
 
     prompt_template = """
-        ใช้ข้อมูลด้านล่างนี้เพื่อตอบคำถามของผู้ใช้ ตอบเป็นภาษาไทยอย่างชัดเจนและกระชับ
-        Context: {context}
-        Chat History: {chat_history}
-        Question: {question}
+        Answer the user's question based on the provided context and chat history.
+        
+        Context:
+        {context}
+        
+        Chat History:
+        {chat_history}
+        
+        Question:
+        {question}
+        
         Answer:
-        """
+    """
 
     prompt = ChatPromptTemplate.from_template(prompt_template)
     chain = prompt | OllamaLLM(model=EMBEDDING_MODEL_NAME)
